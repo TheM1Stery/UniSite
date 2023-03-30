@@ -22,3 +22,8 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+bin
+obj
+wwwroot/*.js
+wwwroot/*.css
