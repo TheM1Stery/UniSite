@@ -1,0 +1,6 @@
+services:
+  test:
+    build: ./WebApplication2
+    container_name: test
+    ports:
+      - "8080:80"
