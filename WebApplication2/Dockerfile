@@ -1,10 +1,4 @@
-﻿FROM mcr.microsoft.com/dotnet/aspnet:7.0 AS base
-WORKDIR /app
-EXPOSE 80
-EXPOSE 443
-
-
-FROM node:19 as node
+﻿FROM node:19 as node
 FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
 COPY --from=node . .
 WORKDIR /src
@@ -26,7 +20,9 @@ WORKDIR /src
 RUN dotnet publish "WebApplication2.csproj" -c Release -o /app/publish
 
 
-FROM base AS final
+FROM mcr.microsoft.com/dotnet/aspnet:7.0 AS final
+EXPOSE 80
+EXPOSE 443
 WORKDIR /app
 COPY --from=publish /app/publish .
 ENTRYPOINT ["dotnet", "WebApplication2.dll"]
