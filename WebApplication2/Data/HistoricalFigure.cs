@@ -10,7 +10,11 @@ public class HistoricalFigure
 
     public required string Occupation { get; init; }
 
-    public required string Description { get; init; }
+    public required string ShortDescription { get; init; }
+    
+    public required string FullDescription { get; init; }
+
+    public required string ImageUrl { get; init; }
 
     public required DateOnly DateOfBirth { get; init; }
 

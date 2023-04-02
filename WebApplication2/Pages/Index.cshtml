@@ -1,44 +1,36 @@
 @page
 @model WebApplication2.Pages.Index
 
+
 <div class="container px-4 md:px-0 max-w-6xl mx-auto">
 
     <div class="mx-0 sm:mx-6">
 
         <div class="bg-gray-200 w-full text-xl md:text-2xl text-gray-800 leading-normal rounded-t">
 
-            <!--Lead Card-->
-            <div class="flex h-full bg-white rounded overflow-hidden shadow-lg">
-                <a asp-page="Index" class="flex flex-wrap no-underline hover:no-underline w-full">
-                    <div class="w-full md:w-2/3 rounded-t">
-                        <img src="" alt="тут должна быть фотка!" class="h-full w-full shadow">
-                    </div>
-
-                    <div class="w-full md:w-1/3 flex flex-col flex-grow flex-shrink">
-                        <div class="flex-1 bg-white rounded-t rounded-b-none overflow-hidden shadow-lg">
-                            <p class="w-full text-gray-600 text-xs md:text-sm pt-6 px-6">GETTING STARTED</p>
-                            <div class="w-full font-bold text-xl text-gray-900 px-6">👋 Welcome</div>
-                            <p class="text-gray-800 font-serif text-base px-6 mb-5">
-                                salam!
-                            </p>
-                        </div>
-
-                        <div class="flex-none mt-auto bg-white rounded-b rounded-t-none overflow-hidden shadow-lg p-6">
-                            <div class="flex items-center justify-between">
-                                <img class="w-8 h-8 rounded-full mr-4 avatar" data-tippy-content="Author Name" src="http://i.pravatar.cc/300" alt="Avatar of Author">
-                                <p class="text-gray-600 text-xs md:text-sm">1 MIN READ</p>
-                            </div>
-                        </div>
-                    </div>
-
-                </a>
-            </div>
-            <!--/Lead Card-->
-
-
             <!--Posts Container-->
-            <div class="flex flex-wrap justify-between pt-12 -mx-6">
-                <div>тут должны быть посты!</div>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 mt-3 mb-3">
+                @foreach (var item in Model.Figures)
+                {
+                    <div class="max-w-sm bg-white border border-gray-200 rounded-lg shadow ">
+                        <a asp-page="Post">
+                            <img class="rounded-t-lg" src="@item.ImageUrl" alt=""/>
+                        </a>
+                        <div class="p-5">
+                            <a asp-page="Post">
+                                <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900">@item.Name @item.Surname</h5>
+                                <p class="mb-3 text-base font-normal text-gray-700">@item.DateOfBirth.Year - @item.DateOfDeath.Year г.</p>
+                            </a>
+                            <p class="mb-3 text-base font-normal text-gray-700">@item.ShortDescription</p>
+                            <a asp-page="Post" class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300">
+                                Подробнее
+                                <svg aria-hidden="true" class="w-4 h-4 ml-2 -mr-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                    <path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
+                }
             </div>
         </div>
 

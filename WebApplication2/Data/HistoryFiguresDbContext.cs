@@ -21,7 +21,8 @@ public class HistoryFiguresDbContext : DbContext
             e.Property(x => x.Occupation).IsRequired();
             e.Property(x => x.DateOfBirth).IsRequired();
             e.Property(x => x.DateOfDeath).IsRequired();
-            e.Property(x => x.Description).IsRequired();
+            e.Property(x => x.ShortDescription).IsRequired();
+            e.Property(x => x.FullDescription).IsRequired();
         });
     }
 
