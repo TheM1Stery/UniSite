@@ -9,6 +9,7 @@ public class Index : PageModel
     private readonly IHistoricalFiguresRepository _repository;
 
     public List<HistoricalFigure> Figures { get; private set; } = new();
+    
 
 
     public Index(IHistoricalFiguresRepository repository)

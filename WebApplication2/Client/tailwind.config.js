@@ -2,7 +2,7 @@
 export default {
   content: [
       "./../Pages/**/*.cshtml",
-      "./src/**/*.js}"
+      "./src/**/*.{html,js}",
   ],
   theme: {
     extend: {},

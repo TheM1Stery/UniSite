@@ -16,7 +16,7 @@ public static class ProgramExtensions
                 Id = Guid.NewGuid(),
                 Name = "Гаджи́",
                 Surname = "Зейналабдин",
-                ImageUrl = "https://upload.wikimedia.org/wikipedia/commons/f/f8/Haji_Zeynalabdin_Taghiyev.jpg",
+                ShortImageUrl = "https://upload.wikimedia.org/wikipedia/commons/f/f8/Haji_Zeynalabdin_Taghiyev.jpg",
                 Occupation =
                     "азербайджанский промышленник, общественно-политический деятель, миллионер и меценат, " +
                     "почётный гражданин, благотворитель и филантроп",
@@ -45,6 +45,7 @@ public static class ProgramExtensions
                 DateOfDeath = new DateOnly(1924, 9, 1),
                 ShortDescription =
                     "Азербайджанский промышленник, общественно-политический деятель, миллионер и меценат, почётный гражданин, благотворитель и филантроп",
+                FullImageUrl = "https://upload.wikimedia.org/wikipedia/commons/f/f8/Haji_Zeynalabdin_Taghiyev.jpg"
             }
         };
         await repository.AddFigureAsync(list[0]);

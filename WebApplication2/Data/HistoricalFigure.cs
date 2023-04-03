@@ -14,8 +14,10 @@ public class HistoricalFigure
     
     public required string FullDescription { get; init; }
 
-    public required string ImageUrl { get; init; }
-
+    public required string ShortImageUrl { get; init; }
+    
+    public required string FullImageUrl { get; init; }
+    
     public required DateOnly DateOfBirth { get; init; }
 
     public required DateOnly DateOfDeath { get; init; }

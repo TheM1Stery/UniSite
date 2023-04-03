@@ -22,7 +22,6 @@ RUN dotnet publish "WebApplication2.csproj" -c Release -o /app/publish
 
 FROM mcr.microsoft.com/dotnet/aspnet:7.0 AS final
 EXPOSE 80
-EXPOSE 443
 WORKDIR /app
 COPY --from=publish /app/publish .
 ENTRYPOINT ["dotnet", "WebApplication2.dll"]
