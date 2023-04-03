@@ -46,7 +46,11 @@ public static class ProgramExtensions
                 ShortDescription =
                     "Азербайджанский промышленник, общественно-политический деятель, миллионер и меценат, почётный гражданин, благотворитель и филантроп",
                 FullImageUrl = "https://upload.wikimedia.org/wikipedia/commons/f/f8/Haji_Zeynalabdin_Taghiyev.jpg"
-            }
+            },
+			new()
+			{
+				
+			}
         };
         await repository.AddFigureAsync(list[0]);
     }
