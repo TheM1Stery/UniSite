@@ -7,6 +7,9 @@ public static class ProgramExtensions
 {
 	public static async Task InitDb(this WebApplication application)
 	{
+        File.Delete("HistoricalFigures.db");
+        File.Delete("HistoricalFigures.db-shm");
+        File.Delete("HistoricalFigures.db-wal");
 		var scope = application.Services.CreateScope();
 		var repository = scope.ServiceProvider.GetRequiredService<IHistoricalFiguresRepository>();
 		var list = new List<HistoricalFigure>()

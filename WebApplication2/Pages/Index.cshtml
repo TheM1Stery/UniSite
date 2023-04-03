@@ -2,27 +2,28 @@
 @model WebApplication2.Pages.Index
 
 
-<div class="container px-4 md:px-0 max-w-6xl mx-auto">
+<div class="container px-4 md:px-0 max-w-6xl mx-auto h-full flex flex-col">
 
-    <div class="mx-0 sm:mx-6">
+    <div class="mx-0 sm:mx-6 h-full">
 
-        <div class="bg-gray-200 w-full text-xl md:text-2xl text-gray-800 leading-normal rounded-t">
+        <div class="bg-gray-200 w-full text-xl md:text-2xl text-gray-800 leading-normal rounded-t h-full">
 
-            <!--Posts Container-->
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 mt-3 mb-3">
                 @foreach (var item in Model.Figures)
                 {
-                    <div class="max-w-sm bg-white border border-gray-200 rounded-lg shadow ">
-                        <img class="rounded-t-lg" src="@item.ShortImageUrl" alt=""/>
+                    <div class="max-w-sm bg-white border border-gray-200 rounded-lg shadow grid grid-rows-[auto_1fr_auto]">
+                        <img class="rounded-t-lg h-[300px] w-full" src="@item.ShortImageUrl" alt=""/>
                         <a asp-page="Post" asp-route-id="@item.Id">
                         </a>
-                        <div class="p-5">
+                        <div class="p-5 flex flex-col">
                             <a asp-page="Post" asp-route-id="@item.Id">
                                 <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900">@item.Name @item.Surname</h5>
                                 <p class="mb-3 text-base font-normal text-gray-700">@item.DateOfBirth.Year - @item.DateOfDeath.Year г.</p>
                             </a>
                             <p class="mb-3 text-base font-normal text-gray-700">@item.ShortDescription</p>
-                            <a asp-page="Post" asp-route-id="@item.Id" class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300">
+                            <a asp-page="Post" asp-route-id="@item.Id" class="inline-flex items-center 
+px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 
+focus:ring-4 focus:outline-none focus:ring-blue-300 mt-auto mr-auto">
                                 Подробнее
                                 <svg aria-hidden="true" class="w-4 h-4 ml-2 -mr-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                                     <path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"></path>
@@ -32,7 +33,29 @@
                     </div>
                 }
             </div>
+
         </div>
+
+    </div>
+    <div class="flex justify-center w-full mt-auto">
+        @if (Model.PageNo - 1 > 0)
+        {
+            <a asp-page="/Index" asp-route-pageNo="@(Model.PageNo - 1)"  class="inline-flex items-center px-4 py-2 mr-3 text-sm font-medium text-gray-500 bg-white border border-gray-300 rounded-lg hover:bg-gray-100 hover:text-gray-700">
+                <svg aria-hidden="true" class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" d="M7.707 14.707a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l2.293 2.293a1 1 0 010 1.414z" clip-rule="evenodd"></path>
+                </svg>
+            Предыдущий
+                </a>
+        }
+        @if (Model.PageNo + 1 <= Model.PageCount)
+        {
+            <a asp-page="/Index" asp-route-pageNo="@(Model.PageNo + 1)" class="inline-flex items-center px-4 py-2 text-sm font-medium text-gray-500 bg-white border border-gray-300 rounded-lg hover:bg-gray-100 hover:text-gray-700">
+                Cледующий
+                <svg aria-hidden="true" class="w-5 h-5 ml-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+                </svg>
+            </a>
+        }
 
     </div>
 </div>

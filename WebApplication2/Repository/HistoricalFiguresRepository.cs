@@ -19,6 +19,18 @@ public class HistoricalFiguresRepository : IHistoricalFiguresRepository
         return await _dbContext.HistoricalFigures.ToListAsync();
     }
 
+    public async Task<List<HistoricalFigure>> GetFiguresAsync(int page, int offset = 3)
+    {
+        var historicalFigures = _dbContext.HistoricalFigures.Skip((page - 1) * offset)
+            .Take(offset);
+        return historicalFigures.ToList();
+    }
+
+    public async Task<int> GetNumberOfPagesAsync(int offset)
+    {
+        return await _dbContext.HistoricalFigures.CountAsync() / 3;
+    }
+
     public async Task<OneOf<HistoricalFigure, NotFound>> GetFigureAsync(Guid id)
     {
         var figure = await _dbContext.HistoricalFigures.FindAsync(id);

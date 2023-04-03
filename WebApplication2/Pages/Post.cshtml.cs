@@ -9,7 +9,7 @@ namespace WebApplication2.Pages
         private readonly IHistoricalFiguresRepository _repository;
         
         public HistoricalFigure? Figure { get; set; }
-        
+       
 
         public PostModel(IHistoricalFiguresRepository repository)
         {
