@@ -15,7 +15,7 @@ builder.Services.AddRazorPages();
 //     options.MinimumSameSitePolicy = SameSiteMode.None;
 // });
 
-builder.Services.ConfigureSameSiteNoneCookies();
+// builder.Services.ConfigureSameSiteNoneCookies();
 
 builder.Services.AddAuth0WebAppAuthentication(options =>
 {
