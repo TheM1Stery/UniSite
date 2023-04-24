@@ -6,21 +6,57 @@
     <title>@ViewData["Title"]</title>
     <link rel="stylesheet" href="./index.css" asp-append-version="true"/>
 </head>
-<body class="bg-gray-200 font-sans leading-normal tracking-normal h-full">
+<body class="font-sans leading-normal tracking-normal h-full bg-slate-200 grid grid-rows-[auto_1fr_auto]">
 
 
 
-<nav class="bg-gray-900 p-4 mt-0 w-full">
-    <div class="container mx-auto flex items-center">
-        <div class="flex text-white font-extrabold">
-            <a class="flex text-white text-base no-underline hover:text-white hover:no-underline" href="#">
-                <span class="hidden w-0 md:w-auto md:block pl-1">Исторические личности!</span>
-            </a>
+@* <nav class="bg-gray-900 p-4 mt-0 w-full"> *@
+@*     <div class="container mx-auto flex items-center"> *@
+@*         <div class="flex text-white font-extrabold"> *@
+@*             <a class="flex text-white text-base no-underline hover:text-white hover:no-underline" href="#"> *@
+@*                 <span class="hidden w-0 md:w-auto md:block pl-1">Исторические личности!</span> *@
+@*             </a> *@
+@*         </div> *@
+@*         <div class="flex pl-4 text-sm"> *@
+@*             <ul class="list-reset flex justify-between flex-1 md:flex-none items-center"> *@
+@*                 <li class="mr-2"> *@
+@*                     <a class="inline-block py-2 px-2 text-white no-underline" asp-page="Index">HOME</a> *@
+@*                 </li> *@
+@*             </ul> *@
+@*         </div> *@
+@*     </div> *@
+@* </nav> *@
+
+<nav class="bg-slate-200 border-gray-200">
+    <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
+        <a href="https://flowbite.com/" class="flex items-center">
+            <img src="https://flowbite.com/docs/images/logo.svg" class="h-8 mr-3" alt="Flowbite Logo"/>
+            <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">Flowbite</span>
+        </a>
+        <div class="flex md:order-2">
+            @if (!User.Identity!.IsAuthenticated)
+            {
+                <a asp-page="Auth/Login" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center mr-3 md:mr-0 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                    Login
+                </a>
+            }
+            else
+            {
+                <a asp-page="Auth/Logout" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center mr-3 md:mr-0 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                    Logout
+                </a>
+            }
+            <button data-collapse-toggle="navbar-cta" type="button" class="inline-flex items-center p-2 text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600" aria-controls="navbar-cta" aria-expanded="false">
+                <span class="sr-only">Open main menu</span>
+                <svg class="w-6 h-6" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clip-rule="evenodd"></path>
+                </svg>
+            </button>
         </div>
-        <div class="flex pl-4 text-sm">
-            <ul class="list-reset flex justify-between flex-1 md:flex-none items-center">
-                <li class="mr-2">
-                    <a class="inline-block py-2 px-2 text-white no-underline" asp-page="Index">HOME</a>
+        <div class="items-center justify-between hidden w-full md:flex md:w-auto md:order-1" id="navbar-cta">
+            <ul class="bg-slate-200 flex flex-col font-medium p-4 md:p-0 mt-4 border border-gray-100 rounded-lg md:flex-row md:space-x-8 md:mt-0 md:border-0 dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
+                <li>
+                    <a asp-page="Index" class="block py-2 pl-3 pr-4 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 md:dark:text-blue-500" aria-current="page">Home</a>
                 </li>
             </ul>
         </div>
@@ -33,7 +69,7 @@
         <div class="flex flex-wrap items-center content-center">
             <div class="flex w-1/2 justify-start text-white font-extrabold">
                 <a class="flex text-gray-900 no-underline hover:text-gray-900 hover:no-underline pl-2" href="#">
-                     <span class="hidden w-0 md:w-auto md:block pl-1">Исторические личности!</span>
+                    <span class="hidden w-0 md:w-auto md:block pl-1">Исторические личности!</span>
                 </a>
             </div>
         </div>
@@ -59,25 +95,29 @@
     </main>
 </div>
 
-<footer class="bg-gray-900 sticky top-[100vh]">
-    <div class="container max-w-6xl mx-auto flex items-center px-2 py-8">
+@* <footer class="bg-gray-900 sticky top-[100vh]"> *@
+@*     <div class="container max-w-6xl mx-auto flex items-center px-2 py-8"> *@
+@* *@
+@*         <div class="w-full mx-auto flex flex-wrap items-center"> *@
+@*             <div class="flex w-full md:w-1/2 justify-center md:justify-start text-white font-extrabold"> *@
+@*                 <a class="text-gray-900 no-underline hover:text-gray-900 hover:no-underline" href="#"> *@
+@*                      <span class="text-base text-gray-200">Исторические личности</span> *@
+@*                 </a> *@
+@*             </div> *@
+@*         </div> *@
+@*     </div> *@
+@* </footer> *@
 
-        <div class="w-full mx-auto flex flex-wrap items-center">
-            <div class="flex w-full md:w-1/2 justify-center md:justify-start text-white font-extrabold">
-                <a class="text-gray-900 no-underline hover:text-gray-900 hover:no-underline" href="#">
-                     <span class="text-base text-gray-200">Исторические личности</span>
-                </a>
-            </div>
-        </div>
+<footer class="rounded-lg shadow m-4 bg-slate-200">
+    <div class="w-full mx-auto max-w-screen-xl p-4 md:flex md:items-center md:justify-between">
+        <span class="text-sm text-gray-500 sm:text-center dark:text-gray-400">
+            © 2023 <a href="https://flowbite.com/" class="hover:underline">Flowbite™</a>. All Rights Reserved.
+        </span>
     </div>
 </footer>
 
+
 <script src="./index.js" asp-append-version="true"></script>
-<script src="https://unpkg.com/popper.js@1/dist/umd/popper.min.js"></script>
-<script src="https://unpkg.com/tippy.js@4"></script>
-<script>
-	tippy('.avatar')
-</script>
 @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

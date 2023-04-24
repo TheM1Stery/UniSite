@@ -1,3 +1,4 @@
+using Auth0.AspNetCore.Authentication;
 using EntityFramework.Exceptions.Sqlite;
 using Microsoft.EntityFrameworkCore;
 using WebApplication2;
@@ -9,6 +10,19 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddRazorPages();
 
+// builder.Services.Configure<CookiePolicyOptions>(options =>
+// {
+//     options.MinimumSameSitePolicy = SameSiteMode.None;
+// });
+
+builder.Services.ConfigureSameSiteNoneCookies();
+
+builder.Services.AddAuth0WebAppAuthentication(options =>
+{
+    options.Domain = builder.Configuration["Auth0:Domain"]!;
+    options.ClientId = builder.Configuration["Auth0:ClientId"]!;
+});
+
 builder.Services.AddDbContext<HistoryFiguresDbContext>(options =>
 {
     options.UseSqlite(builder.Configuration["Database:ConnectionString"]);
@@ -18,6 +32,7 @@ builder.Services.AddDbContext<HistoryFiguresDbContext>(options =>
 builder.Services.AddScoped<IHistoricalFiguresRepository, HistoricalFiguresRepository>();
 
 var app = builder.Build();
+
 // Configure the HTTP request pipeline.
 
 if (!app.Environment.IsDevelopment())
@@ -33,6 +48,7 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapRazorPages();
