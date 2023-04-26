@@ -32,7 +32,7 @@ public class HistoricalFiguresRepository : IHistoricalFiguresRepository
     )
     {
         var historicalFigures = _dbContext.HistoricalFigures
-            .Where(x => x.Name.Contains(query))
+            .Where(x => x.Name.Contains(query) || x.Surname.Contains(query))
             .Skip((page - 1) * offset)
             .Take(offset);
         return await historicalFigures.ToListAsync();
@@ -46,7 +46,7 @@ public class HistoricalFiguresRepository : IHistoricalFiguresRepository
     public async Task<int> GetNumberOfPagesAsync(string query, int offset = 3)
     {
         return await _dbContext.HistoricalFigures
-            .Where(x => x.Name.Contains(query))
+            .Where(x => x.Name.Contains(query) || x.Surname.Contains(query))
             .CountAsync() / offset;
     }
 

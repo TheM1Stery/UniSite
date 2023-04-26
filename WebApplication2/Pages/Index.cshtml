@@ -3,7 +3,7 @@
 
 
 <div class="container px-4 md:px-0 max-w-6xl mx-auto h-full flex flex-col gap-y-5">
-    <form class="flex items-center"> 
+    <form class="flex items-center">
         <label for="query" class="sr-only">Поиск</label>
         <div class="relative w-full">
             <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
@@ -11,8 +11,8 @@
                     <path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd"></path>
                 </svg>
             </div>
-            <input type="text" id="query" 
-                   name="query" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" 
+            <input type="text" id="query"
+                   name="query" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                    placeholder="Поиск...">
         </div>
         <input type="hidden" name="handler" value="search"/>
@@ -26,28 +26,35 @@
     <div class="mx-0 sm:mx-6 h-full">
         <div class="bg-gray-200 w-full text-xl md:text-2xl text-gray-800 leading-normal rounded-t h-full">
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
-                @foreach (var item in Model.Figures)
+                @if (Model.Figures.Count != 0)
                 {
-                    <div class="max-w-sm bg-white border border-gray-200 rounded-lg shadow grid grid-rows-[auto_1fr_auto]">
-                        <img class="rounded-t-lg h-[300px] w-full" src="@item.ShortImageUrl" alt=""/>
-                        <a asp-page="Post" asp-route-id="@item.Id">
-                        </a>
-                        <div class="p-5 flex flex-col">
-                            <a asp-page="Post" asp-route-id="@item.Id">
-                                <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900">@item.Name @item.Surname</h5>
-                                <p class="mb-3 text-base font-normal text-gray-700">@item.DateOfBirth.Year - @item.DateOfDeath.Year г.</p>
-                            </a>
-                            <p class="mb-3 text-base font-normal text-gray-700">@item.ShortDescription</p>
-                            <a asp-page="Post" asp-route-id="@item.Id" class="inline-flex items-center 
+                    @foreach (var item in Model.Figures)
+                    {
+                        <div class="max-w-sm bg-white border border-gray-200 rounded-lg shadow grid grid-rows-[auto_1fr_auto]">
+                            <img class="rounded-t-lg h-[300px] w-full" src="@item.ShortImageUrl" alt=""/>
+                            @* <a asp-page="Post" asp-route-id="@item.Id"> *@
+                            @* </a> *@
+                            <div class="p-5 flex flex-col">
+                                <a asp-page="Post" asp-route-id="@item.Id">
+                                    <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900">@item.Name @item.Surname</h5>
+                                    <p class="mb-3 text-base font-normal text-gray-700">@item.DateOfBirth.Year - @item.DateOfDeath.Year г.</p>
+                                </a>
+                                <p class="mb-3 text-base font-normal text-gray-700">@item.ShortDescription</p>
+                                <a asp-page="Post" asp-route-id="@item.Id" class="inline-flex items-center 
 px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 
 focus:ring-4 focus:outline-none focus:ring-blue-300 mt-auto mr-auto">
-                                Подробнее
-                                <svg aria-hidden="true" class="w-4 h-4 ml-2 -mr-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                                    <path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"></path>
-                                </svg>
-                            </a>
+                                    Подробнее
+                                    <svg aria-hidden="true" class="w-4 h-4 ml-2 -mr-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                        <path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+                                    </svg>
+                                </a>
+                            </div>
                         </div>
-                    </div>
+                    }
+                }
+                else
+                {
+                    <div class="text-xl font-semibold whitespace-nowrap w-full text-center">По заданному критерию не было найдено статей</div>
                 }
             </div>
 
@@ -57,7 +64,7 @@ focus:ring-4 focus:outline-none focus:ring-blue-300 mt-auto mr-auto">
     <div class="flex justify-center w-full mt-auto">
         @if (Model.PageNo - 1 > 0)
         {
-            <a asp-page="/Index" asp-route-pageNo="@(Model.PageNo - 1)" asp-route-query="@(Model.Query)" asp-page-handler="search" 
+            <a asp-page="/Index" asp-route-pageNo="@(Model.PageNo - 1)" asp-route-query="@(Model.Query)" asp-page-handler="search"
                class="inline-flex items-center px-4 py-2 mr-3 text-sm font-medium text-gray-500 bg-white border border-gray-300 rounded-lg hover:bg-gray-100 hover:text-gray-700">
                 <svg aria-hidden="true" class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                     <path fill-rule="evenodd" d="M7.707 14.707a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l2.293 2.293a1 1 0 010 1.414z" clip-rule="evenodd"></path>
@@ -67,7 +74,7 @@ focus:ring-4 focus:outline-none focus:ring-blue-300 mt-auto mr-auto">
         }
         @if (Model.PageNo + 1 <= Model.PageCount)
         {
-            <a asp-page="/Index" asp-route-pageNo="@(Model.PageNo + 1)" asp-route-query="@(Model.Query)" asp-page-handler="search" 
+            <a asp-page="/Index" asp-route-pageNo="@(Model.PageNo + 1)" asp-route-query="@(Model.Query)" asp-page-handler="search"
                class="inline-flex items-center px-4 py-2 text-sm font-medium text-gray-500 bg-white border border-gray-300 rounded-lg hover:bg-gray-100 hover:text-gray-700">
                 Cледующий
                 <svg aria-hidden="true" class="w-5 h-5 ml-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">

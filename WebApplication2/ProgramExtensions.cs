@@ -17,7 +17,7 @@ public static class ProgramExtensions
 			new()
 			{
 				Id = Guid.NewGuid(),
-				Name = "Гаджи́",
+				Name = "Гаджи",
 				Surname = "Зейналабдин",
 				ShortImageUrl = "https://gobaku.ru/wp-content/uploads/2019/09/imgonline-com-ua-Black-White-HMempsESVE.png",
 				Occupation =
