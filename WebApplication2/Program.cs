@@ -1,5 +1,6 @@
 using Auth0.AspNetCore.Authentication;
 using EntityFramework.Exceptions.Sqlite;
+using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.EntityFrameworkCore;
 using WebApplication2;
 using WebApplication2.Data;
@@ -43,6 +44,14 @@ if (!app.Environment.IsDevelopment())
 }
 
 await app.InitDb();
+
+app.UseHttpsRedirection();
+
+app.UseForwardedHeaders(new ForwardedHeadersOptions
+{
+    ForwardedHeaders = ForwardedHeaders.XForwardedProto
+});
+
 
 app.UseStaticFiles();
 

@@ -21,14 +21,33 @@ public class HistoricalFiguresRepository : IHistoricalFiguresRepository
 
     public async Task<List<HistoricalFigure>> GetFiguresAsync(int page, int offset = 3)
     {
-        var historicalFigures = _dbContext.HistoricalFigures.Skip((page - 1) * offset)
-            .Take(offset);
-        return historicalFigures.ToList();
+        var historicalFigures = _dbContext.HistoricalFigures.Skip((page - 1) * offset).Take(offset);
+        return await historicalFigures.ToListAsync();
     }
 
-    public async Task<int> GetNumberOfPagesAsync(int offset)
+    public async Task<List<HistoricalFigure>> GetFiguresAsync(
+        string query,
+        int page,
+        int offset = 3
+    )
     {
-        return await _dbContext.HistoricalFigures.CountAsync() / 3;
+        var historicalFigures = _dbContext.HistoricalFigures
+            .Where(x => x.Name.Contains(query))
+            .Skip((page - 1) * offset)
+            .Take(offset);
+        return await historicalFigures.ToListAsync();
+    }
+
+    public async Task<int> GetNumberOfPagesAsync(int offset = 3)
+    {
+        return await _dbContext.HistoricalFigures.CountAsync() / offset;
+    }
+
+    public async Task<int> GetNumberOfPagesAsync(string query, int offset = 3)
+    {
+        return await _dbContext.HistoricalFigures
+            .Where(x => x.Name.Contains(query))
+            .CountAsync() / offset;
     }
 
     public async Task<OneOf<HistoricalFigure, NotFound>> GetFigureAsync(Guid id)
@@ -40,7 +59,6 @@ public class HistoricalFiguresRepository : IHistoricalFiguresRepository
 
         return figure;
     }
-
 
     public async Task<OneOf<HistoricalFigure, Error>> AddFigureAsync(HistoricalFigure figure)
     {
@@ -56,31 +74,6 @@ public class HistoricalFiguresRepository : IHistoricalFiguresRepository
         }
 
         return entity.Entity;
-    }
-
-    public async Task<OneOf<HistoricalFigure, NotFound, Error>> UpdateFigureAsync(HistoricalFigure figure)
-    {
-        try
-        {
-            var updatedEntity = _dbContext.HistoricalFigures.Update(figure);
-            await _dbContext.SaveChangesAsync();
-            return updatedEntity.Entity;
-        }
-        catch (DbUpdateConcurrencyException e)
-        {
-            return new NotFound();
-        }
-        catch (Exception)
-        {
-            return new Error();
-        }
-    }
-
-    public async Task<OneOf<Success, NotFound>> DeleteFigureAsync(Guid id)
-    {
-        var rows = await _dbContext.HistoricalFigures.Where(x => x.Id == id)
-            .ExecuteDeleteAsync();
-        return rows > 0 ? new Success() : new NotFound();
     }
 
     public async Task<bool> FigureExistsAsync(Guid id)

@@ -11,10 +11,11 @@ public class Index : PageModel
 
     public List<HistoricalFigure> Figures { get; private set; } = new();
 
-
-    [FromQuery] public int PageNo { get; private set; }
+    public int PageNo { get; private set; }
 
     public int PageCount { get; private set; }
+
+    public string? Query { get; private set; }
 
     public Index(IHistoricalFiguresRepository repository)
     {
@@ -32,5 +33,25 @@ public class Index : PageModel
         }
         Figures = await _repository.GetFiguresAsync(pageNo);
         PageNo = pageNo;
+    }
+
+    public async Task OnGetSearch(string? query, int pageNo)
+    {
+        if (string.IsNullOrWhiteSpace(query))
+        {
+            await OnGet(pageNo);
+            return;
+        }
+        PageCount = await _repository.GetNumberOfPagesAsync(query);
+        if (pageNo == 0)
+        {
+            Figures = await _repository.GetFiguresAsync(query, 1);
+            PageNo = 1;
+            Query = query;
+            return;
+        }
+        Figures = await _repository.GetFiguresAsync(query, pageNo);
+        PageNo = pageNo;
+        Query = query;
     }
 }
